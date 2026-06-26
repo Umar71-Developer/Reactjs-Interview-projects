@@ -15,40 +15,40 @@ export default function Accordian() {
         setSelected(getCurrentId === selected ? null : getCurrentId)
     }
 
-    function hanldleMultiSelection(getCurrentId){
+    function hanldleMultiSelection(getCurrentId) {
         let copyMultiple = [...multiple];
         const findIndexOfCurrentId = copyMultiple.indexOf(getCurrentId)
         console.log(findIndexOfCurrentId)
-        if(findIndexOfCurrentId === -1) copyMultiple.push(getCurrentId)
-            else copyMultiple.splice(findIndexOfCurrentId , 1)
+        if (findIndexOfCurrentId === -1) copyMultiple.push(getCurrentId)
+        else copyMultiple.splice(findIndexOfCurrentId, 1)
 
         setMultiple(copyMultiple)
     }
-    console.log(selected , multiple)
+    console.log(selected, multiple)
     return (
         <div className="wrapper">
-            <button onClick={()=> setEnableMultiSelection(!enableMultiSelection)}>Enable Multi Selection</button>
+            <button onClick={() => setEnableMultiSelection(!enableMultiSelection)}>Enable Multi Selection</button>
             <div className="accordian">
                 {
                     data && data.length > 0 ? (
                         data.map((dataItem) => (
                             <div className="item">
                                 <div
-                                    onClick={
-                                        enableMultiSelection ? 
-                                        () => hanldleMultiSelection(dataItem.id) :
-                                        () => handleSingleSelection(dataItem.id)} className="title">
+                                     className="title">
                                     <h3>{dataItem.question}</h3>
-                                    <span>+</span>
+                                    <span onClick={
+                                        enableMultiSelection ?
+                                            () => hanldleMultiSelection(dataItem.id) :
+                                            () => handleSingleSelection(dataItem.id)}>+</span>
                                 </div>
                                 {
-                                    enableMultiSelection ? 
-                                    multiple.indexOf(dataItem.id) !== -1 && (
-                                        <div className='content'>{dataItem.answer}</div>
-                                    )
-                                    : selected === dataItem.id && (
-                                        <div className="content">{dataItem.answer}</div>
-                                    )
+                                    enableMultiSelection ?
+                                        multiple.indexOf(dataItem.id) !== -1 && (
+                                            <div className='content'>{dataItem.answer}</div>
+                                        )
+                                        : selected === dataItem.id && (
+                                            <div className="content">{dataItem.answer}</div>
+                                        )
                                 }
                             </div>
                         ))
